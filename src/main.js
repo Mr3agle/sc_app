@@ -34,46 +34,25 @@ requireComponent.keys().forEach((fileName) => {
 
 Vue.component('Layout', Layout)
 
-// axios.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     switch (error.response.status) {
-//       case 422: {
-//         store.commit('setErrors', error.response.data.errors)
-//         break
-//       }
-//       case 401: {
-//         store.commit('auth/setUserData', null)
-//         localStorage.removeItem('authToken')
-//         router.push({ name: 'Login' })
-//         break
-//       }
-//       default: {
-//         return Promise.reject(error)
-//       }
-//     }
-//   }
-// )
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
-// axios.interceptors.request.use(function(config) {
-//   config.headers.common = {
-//     Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-//     'Content-Type': 'application/json',
-//     Accept: 'application/json',
-//   }
-//   return config
-// })
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response.status === 422) {
-      store.commit('setErrors', error.response.data.errors)
-    } else if (error.response.status === 401) {
-      store.commit('auth/setUserData', null)
-      localStorage.removeItem('authToken')
-      router.push({ name: 'Login' })
-    } else {
-      return Promise.reject(error)
+    switch (error.response.status) {
+      case 422: {
+        store.commit('setErrors', error.response.data.errors)
+        break
+      }
+      case 401: {
+        store.commit('auth/setUserData', null)
+        localStorage.removeItem('authToken')
+        router.push({ name: 'Login' })
+        break
+      }
+      default: {
+        return Promise.reject(error)
+      }
     }
   }
 )
@@ -84,9 +63,32 @@ axios.interceptors.request.use(function(config) {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   }
-
   return config
 })
+// axios.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response.status === 422) {
+//       store.commit('setErrors', error.response.data.errors)
+//     } else if (error.response.status === 401) {
+//       store.commit('auth/setUserData', null)
+//       localStorage.removeItem('authToken')
+//       router.push({ name: 'Login' })
+//     } else {
+//       return Promise.reject(error)
+//     }
+//   }
+// )
+
+// axios.interceptors.request.use(function(config) {
+//   config.headers.common = {
+//     Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+//     'Content-Type': 'application/json',
+//     Accept: 'application/json',
+//   }
+
+//   return config
+// })
 
 Vue.mixin({
   methods: {
