@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <div v-show="isAdmin" class="w-screen flex admin-nav bg-blue-900 p-1">
+      <a href="/dashboard">
+        <div class="px-3 dashboard p2 text-white bg-blue-600 rounded cursor-pointer ml-4">
+          Administrar
+        </div>
+      </a>
+    </div>
     <div id="nav">
       <router-link to="/">Inicio</router-link>
       |
@@ -16,6 +23,9 @@
         <button type="button" @click="logout">Salir</button>
       </span>
     </div>
+    <!-- <div class="showbar" @click="isAdmin">
+      será admin?
+    </div> -->
     <router-view />
   </div>
 </template>
@@ -46,6 +56,11 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   export default {
+    data(){
+      return{
+        isAdmin: null
+      }
+    },
     computed: {
       ...mapGetters('auth', ['user']),
     },
@@ -59,11 +74,21 @@
 
       logout() {
         this.sendLogOutRequest()
-        // location.reload()
-        // if (!this.$router.currentRouteName !== 'Home') {
-        //   this.$router.push('/')
-        // }
-      },
+        this.$router.push({name: 'Home'}, () => {})
+      }
     },
+    updated() {
+      if (this.user !== null && this.user.role === 'admin') {
+        // console.log(this.user.role)
+        this.isAdmin = true
+      }
+      else{
+        // console.log('Not in or logged out')
+        this.isAdmin = false
+      }
+
+      // console.log(localStorage.getItem('authRole'))
+
+    }
   }
 </script>

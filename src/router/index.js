@@ -19,6 +19,14 @@ const auth = (to, from, next) => {
     return next('/login')
   }
 }
+const admin = (to, from, next) => {
+  const isAdmin = localStorage.getItem('authRole')
+  if (isAdmin == 'admin') {
+    return next()
+  } else {
+    return next('/404')
+  }
+}
 
 const routes = [
   {
@@ -53,6 +61,14 @@ const routes = [
     props: true,
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/auth/Verify'),
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    beforeEnter: admin,
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/admin/Dashboard'),
   },
   {
     path: '*',

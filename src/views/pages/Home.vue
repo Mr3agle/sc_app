@@ -105,7 +105,7 @@
               Solo miembros
             </p>
             <div class="text-gray-900 font-bold text-xl mb-2 text-left mt-3">
-              Hola {{ user.name }}!
+              Hola {{ user.name }}! eres un {{ user.role }}
             </div>
             <p class="text-gray-700 text-base text-left">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.

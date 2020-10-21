@@ -3,14 +3,14 @@ const api_url = process.env.VUE_APP_API_URL
 
 export default {
   namespaced: true,
-  state: { userData: null },
+  state: { userData: null},
   getters: {
-    user: (state) => state.userData,
+    user: (state) => state.userData
   },
   mutations: {
     setUserData(state, user) {
       state.userData = user
-    },
+    }
   },
   actions: {
     loginRequest({ commit }, data) {
@@ -18,6 +18,7 @@ export default {
       return axios.post(api_url + 'login', data).then((response) => {
         commit('setUserData', response.data.user)
         localStorage.setItem('authToken', response.data.token)
+        localStorage.setItem('authRole', response.data.user.role)
       })
     },
     registerRequest({ commit }, data) {
@@ -25,6 +26,7 @@ export default {
       return axios.post(api_url + 'register', data).then((response) => {
         commit('setUserData', response.data.user)
         localStorage.setItem('authToken', response.data.token)
+        localStorage.setItem('authRole', response.data.user.role)
       })
     },
     userDataRequest({ commit }) {
@@ -35,12 +37,14 @@ export default {
         })
         .catch(() => {
           localStorage.removeItem('authToken')
+          localStorage.removeItem('authRole')
         })
     },
     sendLogOutRequest({ commit }) {
       axios.post(api_url + 'logout').then(() => {
         commit('setUserData', null)
         localStorage.removeItem('authToken')
+        localStorage.removeItem('authRole')
       })
     },
     resendVerificationRequest() {

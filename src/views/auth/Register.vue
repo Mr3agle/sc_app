@@ -1,30 +1,67 @@
 <template>
   <main class="container mx-auto bg-gray-300 p-5">
-    <div class="w-full max-w-xs mx-auto">
-      <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div class="mb-4">
-          <label
-            class="block text-gray-700 text-sm font-bold mb-2 text-left"
-            for="name"
-          >
-            Nombre
-          </label>
-          <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            :class="{ 'border-red-500': errors.name }"
-            id="nombre"
-            type="text"
-            placeholder="John Doe"
-            v-model="registerData.name"
-          />
-          <div class="text-red-500 text-xs italic text-left" v-if="errors.name">
-            {{ errors.name[0] }}
+    <div class=" max-w-lg mx-auto">
+      <form
+        class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        @keyup.enter="register"
+      >
+        <div class="flex">
+          <div class="w-1/2 mr-2">
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2 text-left"
+                for="name"
+              >
+                Nombre
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                :class="{ 'border-red-500': errors.name }"
+                id="name"
+                type="text"
+                name="name"
+                placeholder="John"
+                v-model="registerData.name"
+              />
+              <div
+                class="text-red-500 text-xs italic text-left"
+                v-if="errors.name"
+              >
+                {{ errors.name[0] }}
+              </div>
+            </div>
+          </div>
+          <div class="w-1/2 ml-2 h-12">
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2 text-left"
+                for="lastname"
+              >
+                Apellido
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                :class="{ 'border-red-500': errors.lastname }"
+                id="lastname"
+                type="text"
+                name= "lastname"
+                placeholder="Doe"
+                v-model="registerData.lastname"
+              />
+              <div
+                class="text-red-500 text-xs italic text-left"
+                v-if="errors.lastname"
+              >
+                {{ errors.lastname[0] }}
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="mb-4">
           <label
             class="block text-gray-700 text-sm font-bold mb-2 text-left"
-            for="username"
+            for="email"
           >
             E-mail
           </label>
@@ -33,6 +70,7 @@
             :class="{ 'border-red-500': errors.email }"
             id="email"
             type="email"
+            name="email"
             placeholder="alguien@mail.com"
             v-model="registerData.email"
           />
@@ -43,6 +81,29 @@
             {{ errors.email[0] }}
           </div>
         </div>
+        <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2 text-left"
+                for="username"
+              >
+                Nombre de Usuario
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                :class="{ 'border-red-500': errors.username }"
+                id="nombre"
+                type="text"
+                name="username"
+                placeholder="john_doe007"
+                v-model="registerData.username"
+              />
+              <div
+                class="text-red-500 text-xs italic text-left"
+                v-if="errors.username"
+              >
+                {{ errors.username[0] }}
+              </div>
+            </div>
         <div class="mb-6">
           <label
             class="block text-gray-700 text-sm font-bold mb-2 text-left"
@@ -55,6 +116,7 @@
             :class="{ 'border-red-500': errors.password }"
             id="password"
             type="password"
+            name="password"
             placeholder="*********"
             v-model="registerData.password"
           />
@@ -68,7 +130,7 @@
         <div class="mb-6">
           <label
             class="block text-gray-700 text-sm font-bold mb-2 text-left"
-            for="password"
+            for="password-confirm"
           >
             Repetir Contraseña
           </label>
@@ -76,6 +138,7 @@
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password-check"
             type="password"
+            name="password-confirm"
             placeholder="*********"
             v-model="registerData.password_confirmation"
           />
@@ -110,9 +173,12 @@
       return {
         registerData: {
           name: null,
+          lastname: null,
+          username: null,
           email: null,
           password: null,
           password_confirmation: null,
+          role: 'user'
         },
       }
     },
