@@ -1,6 +1,10 @@
 <template>
   <div class="home mt-5">
-    <div class="container mx-auto">
+    <div class="container mx-auto flex justify-center">
+      <div v-show="!user" class="image text-center w-1/3 mb-4 relative">
+        <img src="https://images.unsplash.com/photo-1555421689-3f034debb7a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80" class="rounded-lg z-10" alt="Simpol Commerce">
+        <img src="https://images.unsplash.com/photo-1555421689-3f034debb7a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80" class="rounded-lg absolute image-shadow" alt="Simpol Commerce">
+      </div>
       <div
         class="alert-animate w-1/2 mb-12 mx-auto bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
         role="alert"
@@ -55,7 +59,7 @@
     <div class="alert alert-danger" role="alert" v-if="error">
       {{ error }}
     </div>
-    <h2 v-if="!user">
+    <h2 v-if="!user" class=" mt-5">
       Bienvenido a Simpol-Commerce, para ver el contenido por favor
       <router-link class="text-blue-500 hover:text-blue-700" to="/register">
         regístate

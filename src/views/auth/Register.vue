@@ -1,6 +1,6 @@
 <template>
   <main class="container mx-auto bg-gray-300 p-5">
-    <div class=" max-w-lg mx-auto">
+    <div class=" max-w-lg mx-auto teste">
       <form
         class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         @keyup.enter="register"
@@ -197,7 +197,12 @@
       },
     },
     mounted() {
-      this.$store.commit('setErrors', {})
+      this.$store.commit('setErrors', {}),
+      this.$gsap.from('.teste', {
+        opacity: 0,
+        y: 100,
+        duration: 1,
+      })
     },
   }
 </script>

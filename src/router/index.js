@@ -63,12 +63,28 @@ const routes = [
       import(/* webpackChunkName: "about" */ '../views/auth/Verify'),
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
+    path: '/admin/dashboard',
+    name: 'AdminDashboard',
     beforeEnter: admin,
     props: true,
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/admin/Dashboard'),
+  },
+  {
+    path: '/admin/productos',
+    name: 'AdminProductos',
+    beforeEnter: admin,
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/admin/Products'),
+  },
+  {
+    path: '/admin/usuarios',
+    name: 'AdminUsers',
+    beforeEnter: admin,
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/admin/Users'),
   },
   {
     path: '*',

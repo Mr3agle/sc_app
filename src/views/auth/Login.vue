@@ -1,17 +1,17 @@
 <template>
   <main class="container mx-auto bg-gray-300 p-5">
-    <div class="w-full max-w-xs mx-auto">
+    <div class="w-full max-w-xs mx-auto teste">
       <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @keyup.enter="login">
         <div class="mb-4">
           <label
             class="block text-gray-700 text-sm font-bold mb-2 text-left"
             for="username"
           >
-            E-mail/Usuario
+            E-mail o Usuario
           </label>
           <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            :class="{ 'border-red-500': errors.email }"
+            :class="{ 'border-red-500': errors.email || errors.username }"
             id="email"
             type="text"
             name="username"
@@ -23,6 +23,12 @@
             v-if="errors.email"
           >
             {{ errors.email[0] }}
+          </div>
+          <div
+            class="text-red-500 text-xs italic text-left"
+            v-if="errors.username"
+          >
+            {{ errors.username[0] }}
           </div>
         </div>
         <div class="mb-6">
@@ -86,7 +92,12 @@
       ...mapGetters(['errors']),
     },
     mounted() {
-      this.$store.commit('setErrors', {})
+      this.$store.commit('setErrors', {}),
+      this.$gsap.from('.teste', {
+        opacity: 0,
+        y: 100,
+        duration: 1,
+      })
     },
     methods: {
       ...mapActions('auth', ['loginRequest']),
